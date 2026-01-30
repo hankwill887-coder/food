@@ -2,6 +2,15 @@
 import { ref } from 'vue'
 import { Plus, Flame, ChevronRight, MoreHorizontal } from 'lucide-vue-next'
 import BaseButton from '@/components/ui/BaseButton.vue'
+import FoodSearchDrawer from '@/components/food/FoodSearchDrawer.vue'
+
+const showDrawer = ref(false)
+const activeMeal = ref('')
+
+const openDrawer = (mealId: string) => {
+  activeMeal.value = mealId
+  showDrawer.value = true
+}
 
 // Mock Data
 const stats = {
@@ -146,7 +155,7 @@ const getPercent = (curr: number, max: number) => Math.min((curr / max) * 100, 1
                <p class="text-xs text-slate-400 font-medium">{{ meal.calories }} kcal</p>
              </div>
           </div>
-          <BaseButton size="sm" variant="ghost" class="rounded-full w-10 h-10 p-0">
+          <BaseButton size="sm" variant="ghost" class="rounded-full w-10 h-10 p-0" @click="openDrawer(meal.id)">
              <Plus class="w-5 h-5" />
           </BaseButton>
         </div>
@@ -171,6 +180,13 @@ const getPercent = (curr: number, max: number) => Math.min((curr / max) * 100, 1
         </div>
       </div>
     </div>
+
+    <!-- Food Search Drawer -->
+    <FoodSearchDrawer 
+      :visible="showDrawer" 
+      :meal-type="activeMeal" 
+      @update:visible="showDrawer = $event" 
+    />
 
   </div>
 </template>
