@@ -15,6 +15,11 @@ const router = createRouter({
                     name: 'home',
                     component: () => import('@/views/diary/TodayView.vue')
                 },
+                {
+                    path: 'weight',
+                    name: 'weight',
+                    component: () => import('@/views/weight/WeightView.vue')
+                },
                 // ... other routes
             ]
         },
