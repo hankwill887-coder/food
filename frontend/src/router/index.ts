@@ -8,39 +8,25 @@ const router = createRouter({
         {
             path: '/',
             component: AppLayout,
+            meta: { requiresAuth: true },
             children: [
                 {
                     path: '',
                     name: 'home',
                     component: HelloWorld // Temporary placeholder
                 },
-                {
-                    path: 'diary',
-                    name: 'diary',
-                    component: () => import('@/components/HelloWorld.vue') // Placeholder
-                },
-                {
-                    path: 'foods',
-                    name: 'foods',
-                    component: () => import('@/components/HelloWorld.vue') // Placeholder
-                },
-                {
-                    path: 'weight',
-                    name: 'weight',
-                    component: () => import('@/components/HelloWorld.vue') // Placeholder
-                },
-                {
-                    path: 'profile',
-                    name: 'profile',
-                    component: () => import('@/components/HelloWorld.vue') // Placeholder
-                }
+                // ... other routes
             ]
         },
-        // Auth routes will be separate (outside AppLayout)
         {
             path: '/login',
             name: 'login',
-            component: () => import('@/components/HelloWorld.vue') // Placeholder
+            component: () => import('@/views/auth/LoginView.vue')
+        },
+        {
+            path: '/register',
+            name: 'register',
+            component: () => import('@/views/auth/RegisterView.vue')
         }
     ]
 })
