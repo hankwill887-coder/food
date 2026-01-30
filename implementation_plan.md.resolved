@@ -1,53 +1,69 @@
-# Phase 0: Environment & Initialization Plan
+# Frontend Implementation Plan (Static First)
 
-## Goal Description
-Clean up the existing workspace by removing the unused `hello-elementor` WordPress theme and establish the foundation for the new application: a Spring Boot backend and a Vue 3 frontend.
+## Goal
+Build a premium, "product-like" static frontend using Vue 3 and TailwindCSS. The focus is on visual aesthetics, layout, and interaction flow using mock data. No backend integration yet.
 
-## Proposed Changes
+## Tech Stack (Confirmed)
+- Vue 3 (Script Setup)
+- TailwindCSS (Styling)
+- Element Plus (Complex Components like DatePicker, Dialog)
+- Lucide Vue / Element Plus Icons
+- ECharts (Charts)
 
-### 1. Cleanup
-- **Directory**: `f:\code\food\hello-elementor`
-- **Action**: Delete recursively.
+## Implementation Steps
 
-### 2. Backend Initialization (Spring Boot)
-- **Framework**: Spring Boot 3.x
-- **Location**: `f:\code\food\backend`
-- **Dependencies**:
-  - `spring-boot-starter-web` (REST API)
-  - `spring-boot-starter-data-jpa` (Database)
-  - `spring-boot-starter-security` (Auth)
-  - `spring-boot-starter-validation` (Input validation)
-  - `postgresql` (Driver)
-  - `flyway-core` (DB Migration)
-  - `lombok` (Boilerplate reduction)
-  - `springdoc-openapi-starter-webmvc-ui` (Swagger/API Docs)
-- **Structure**:
-  ```text
-  com.example.nutrition
-  ├── common        // Global exceptions, result wrappers
-  ├── config        // Security, Swagger, CORS configs
-  ├── module
-  │   ├── auth      // Login/Register logic
-  │   ├── food      // Food items & search
-  │   ├── diary     // Daily records
-  │   └── user      // Profile & Goals
-  └── NutritionApplication.java
-  ```
+### Step 1: Design System & Layout (The "Shell")
+**Goal**: Establish the look and feel.
+- **Theme Config**: Extend [tailwind.config.js](file:///f:/code/food/frontend/tailwind.config.js) with a custom color palette (e.g., `emerald` or `teal` for health, `slate` for text).
+- **Layout Component**: Create `src/layout/AppLayout.vue`.
+    - **Sidebar**: Desktop (Left fixed) + Mobile (Bottom Tab Bar or Drawer).
+    - **Navigation**: Home, Diary, Foods, Weight, Settings.
+- **Global Styles**: Soft shadows, rounded corners (using `rounded-2xl` heavily).
 
-### 3. Frontend Initialization (Vue 3)
-- **Framework**: Vue 3 + Vite
-- **Location**: `f:\code\food\frontend`
-- **Tech Stack**:
-  - `vue-router`: Routing
-  - `pinia`: State Management
-  - `tailwindcss`: Styling (Utility-first)
-  - `element-plus`: UI Components (for complex inputs/tables)
-  - `@vueuse/core`: Composable utilities
-  - `axios`: API requests
-- **Configuration**:
-  - Setup `vite.config.ts` with alias `@` -> `src/`
-  - Initialize Tailwind CSS with `postcss` and `autoprefixer`
+### Step 2: Authentication UI
+**Goal**: A welcoming entry point.
+- **Pages**: `src/views/auth/LoginView.vue`, `src/views/auth/RegisterView.vue`.
+- **Features**:
+    - Split screen layout (Image Left + Form Right) or Centered Card.
+    - Floating labels or clean inputs with validation feedback loops (visual only).
 
-## Verification Plan
-1. **Backend Verify**: Run `mvn spring-boot:run` and access `http://localhost:8080/swagger-ui.html` to see the API doc page.
-2. **Frontend Verify**: Run `npm run dev` and access `http://localhost:5173` to see the "Hello Vue" page with Tailwind styles working.
+### Step 3: Onboarding Wizard
+**Goal**: Collect initial user data.
+- **Component**: `src/views/onboarding/OnboardingView.vue`.
+- **Flow**:
+    1. Basic Info (Gender, DOB).
+    2. Body Metrics (Height, Current Weight).
+    3. Goal Setting (Lose/Maintain/Gain, Activity Level).
+- **UI**: Progress bar at top, smooth transitions between steps.
+
+### Step 4: The "Today" Dashboard (Core)
+**Goal**: The main interaction hub.
+- **Component**: `src/views/diary/TodayView.vue`.
+- **Widgets**:
+    - **Calorie Ring**: Large circular progress bar showing `Consumed / Target`.
+    - **Macro Cards**: 3 small cards for Protein/Carb/Fat.
+    - **Meal List**: Collapsible sections (Breakfast, Lunch, Dinner, Snack).
+    - **Add Button**: Floating Action Button (FAB) or prominent button to add food.
+
+### Step 5: Food Input Flow
+**Goal**: Simulate adding food.
+- **Component**: `src/components/food/FoodSearchDrawer.vue`.
+- **Features**:
+    - Search input (auto-focus).
+    - Mock Search Results List.
+    - Click item -> Open `FoodDetailModal.vue`.
+    - `FoodDetailModal`: Dial/Slider for adjusting serving size.
+
+### Step 6: Weight & Analysis
+**Goal**: Visual feedback.
+- **Component**: `src/views/weight/WeightView.vue`.
+- **Features**:
+    - ECharts Line Chart (Mock data: last 30 days).
+    - List of recent weight logs.
+    - "Add Weight" simple modal.
+
+## Github Workflow
+After completing each "Step", I will:
+1. `git add .`
+2. `git commit -m "feat: implement [step_name]"`
+3. `git push`
