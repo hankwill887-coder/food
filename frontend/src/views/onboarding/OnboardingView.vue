@@ -45,16 +45,16 @@ const finishOnboarding = () => {
 
 // Options
 const goals = [
-  { id: 'lose', label: 'Lose Weight', desc: 'Burn fat & get lean' },
-  { id: 'maintain', label: 'Maintain', desc: 'Stay healthy & fit' },
-  { id: 'gain', label: 'Gain Muscle', desc: 'Build mass & strength' },
+  { id: 'lose', label: '减脂', desc: '燃烧脂肪，变得苗条' },
+  { id: 'maintain', label: '保持健康', desc: '维持当前体重与健康' },
+  { id: 'gain', label: '增肌', desc: '增加肌肉量与力量' },
 ]
 
 const activityLevels = [
-  { id: 'sedentary', label: 'Sedentary', desc: 'Office job, little exercise' },
-  { id: 'light', label: 'Lightly Active', desc: '1-3 days/week exercise' },
-  { id: 'moderate', label: 'Moderately Active', desc: '3-5 days/week exercise' },
-  { id: 'active', label: 'Very Active', desc: '6-7 days/week hard exercise' },
+  { id: 'sedentary', label: '久坐不动', desc: '办公室工作，极少运动' },
+  { id: 'light', label: '轻度活动', desc: '每周运动 1-3 天' },
+  { id: 'moderate', label: '中度活动', desc: '每周运动 3-5 天' },
+  { id: 'active', label: '高强度活动', desc: '每周高强度运动 6-7 天' },
 ]
 </script>
 
@@ -76,25 +76,25 @@ const activityLevels = [
           <!-- Step 1: Basic Info -->
           <div v-if="step === 1" class="space-y-6">
             <div class="text-center mb-8">
-              <h2 class="text-2xl font-bold text-slate-900">Tell us about yourself</h2>
-              <p class="text-slate-500 mt-2">To calculate your precise calorie needs.</p>
+              <h2 class="text-2xl font-bold text-slate-900">介绍一下您自己</h2>
+              <p class="text-slate-500 mt-2">我们将依据这些信息为您计算精准的卡路里需求。</p>
             </div>
 
             <div class="space-y-4">
-              <label class="block text-sm font-medium text-slate-700">Gender</label>
+              <label class="block text-sm font-medium text-slate-700">生理性别</label>
               <div class="grid grid-cols-2 gap-4">
                 <button 
-                  v-for="g in ['male', 'female']" 
+                  v-for="g in ['男', '女']" 
                   :key="g"
                   type="button"
-                  @click="formData.gender = g"
+                  @click="formData.gender = (g === '男' ? 'male' : 'female')"
                   class="relative flex items-center justify-center p-4 rounded-xl border-2 transition-all duration-200"
-                  :class="formData.gender === g 
+                  :class="(formData.gender === 'male' && g === '男') || (formData.gender === 'female' && g === '女')
                     ? 'border-primary-500 bg-primary-50 text-primary-700' 
                     : 'border-slate-200 hover:border-slate-300 text-slate-600'"
                 >
                   <span class="capitalize font-medium">{{ g }}</span>
-                  <div v-if="formData.gender === g" class="absolute top-2 right-2 text-primary-600">
+                  <div v-if="(formData.gender === 'male' && g === '男') || (formData.gender === 'female' && g === '女')" class="absolute top-2 right-2 text-primary-600">
                     <Check class="w-4 h-4" />
                   </div>
                 </button>
@@ -102,7 +102,7 @@ const activityLevels = [
 
               <BaseInput 
                 id="birthDate" 
-                label="Date of Birth" 
+                label="出生日期" 
                 type="date" 
                 v-model="formData.birthDate" 
               />
@@ -112,21 +112,21 @@ const activityLevels = [
           <!-- Step 2: Body Metrics -->
           <div v-else-if="step === 2" class="space-y-6">
             <div class="text-center mb-8">
-              <h2 class="text-2xl font-bold text-slate-900">Your Body Metrics</h2>
-              <p class="text-slate-500 mt-2">We use this to estimate your metabolism.</p>
+              <h2 class="text-2xl font-bold text-slate-900">身体数据</h2>
+              <p class="text-slate-500 mt-2">用于估算您的基础代谢率。</p>
             </div>
 
             <div class="space-y-6">
               <BaseInput 
                 id="height" 
-                label="Height (cm)" 
+                label="身高 (cm)" 
                 type="number" 
                 v-model="formData.height" 
                 placeholder="175"
               />
               <BaseInput 
                 id="weight" 
-                label="Current Weight (kg)" 
+                label="当前体重 (kg)" 
                 type="number" 
                 v-model="formData.weight" 
                 placeholder="70"
@@ -137,13 +137,13 @@ const activityLevels = [
           <!-- Step 3: Goal & Activity -->
           <div v-else-if="step === 3" class="space-y-6">
             <div class="text-center mb-8">
-              <h2 class="text-2xl font-bold text-slate-900">Your Goal</h2>
-              <p class="text-slate-500 mt-2">What do you want to achieve?</p>
+              <h2 class="text-2xl font-bold text-slate-900">您的目标</h2>
+              <p class="text-slate-500 mt-2">您希望达成什么样的成果？</p>
             </div>
 
             <div class="space-y-4">
               <div class="space-y-2">
-                <label class="block text-sm font-medium text-slate-700">Goal</label>
+                <label class="block text-sm font-medium text-slate-700">主要目标</label>
                 <div class="grid grid-cols-1 gap-2">
                   <button 
                     v-for="item in goals" 
@@ -167,7 +167,7 @@ const activityLevels = [
               </div>
 
               <div class="space-y-2">
-                <label class="block text-sm font-medium text-slate-700">Activity Level</label>
+                <label class="block text-sm font-medium text-slate-700">日常活动水平</label>
                 <select 
                   v-model="formData.activity"
                   class="block w-full rounded-xl border-slate-200 shadow-sm focus:border-primary-500 focus:ring-primary-500 py-3 px-4"
@@ -188,7 +188,7 @@ const activityLevels = [
               @click="prevStep"
             >
               <ArrowLeft class="w-5 h-5 mr-2" />
-              Back
+              上一步
             </BaseButton>
             <div v-else></div> <!-- Spacer -->
 
@@ -198,7 +198,7 @@ const activityLevels = [
               :loading="loading"
               class="min-w-[120px]"
             >
-              {{ step === totalSteps ? 'Finish' : 'Next' }}
+              {{ step === totalSteps ? '完成' : '下一步' }}
               <ArrowRight v-if="step !== totalSteps" class="w-5 h-5 ml-2" />
             </BaseButton>
           </div>

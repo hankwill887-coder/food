@@ -85,28 +85,28 @@ const addWeight = () => {
       <div class="flex-1">
         <BaseInput 
           id="weight" 
-          label="Log Today's Weight" 
+          label="记录今日体重" 
           type="number" 
           v-model="currentWeight" 
-          placeholder="e.g. 69.5" 
+          placeholder="例如 69.5" 
         />
       </div>
       <BaseButton size="lg" class="mb-[2px]" @click="addWeight">
         <Plus class="w-5 h-5 mr-2" />
-        Log Weight
+        记录
       </BaseButton>
     </div>
 
     <!-- Chart Card -->
     <div class="bg-white rounded-3xl p-6 shadow-sm border border-slate-100 h-96">
-      <h3 class="font-bold text-lg text-slate-900 mb-4">Weight Trend (Last 7 Days)</h3>
+      <h3 class="font-bold text-lg text-slate-900 mb-4">体重趋势 (近7天)</h3>
       <div ref="chartRef" class="w-full h-[320px]"></div>
     </div>
 
     <!-- History List -->
     <div class="bg-white rounded-3xl shadow-sm border border-slate-100 overflow-hidden">
       <div class="px-6 py-4 border-b border-slate-50 bg-slate-50/50">
-        <h3 class="font-bold text-slate-900">Recent History</h3>
+        <h3 class="font-bold text-slate-900">最近记录</h3>
       </div>
       <div class="divide-y divide-slate-50">
         <div v-for="(entry, idx) in [...weightHistory].reverse()" :key="idx" class="px-6 py-4 flex justify-between items-center group hover:bg-slate-50 transition-colors">

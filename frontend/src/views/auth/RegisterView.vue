@@ -26,11 +26,11 @@ const handleRegister = async () => {
   <div class="min-h-screen bg-slate-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
     <div class="sm:mx-auto sm:w-full sm:max-w-md">
       <div class="text-center">
-        <h2 class="mt-6 text-3xl font-extrabold text-slate-900">Create your account</h2>
+        <h2 class="mt-6 text-3xl font-extrabold text-slate-900">创建新账号</h2>
         <p class="mt-2 text-sm text-slate-600">
-          Already have an account?
+          已有账号？
           <RouterLink to="/login" class="font-medium text-primary-600 hover:text-primary-500">
-            Sign in
+            直接登录
           </RouterLink>
         </p>
       </div>
@@ -41,35 +41,35 @@ const handleRegister = async () => {
         <form @submit.prevent="handleRegister" class="space-y-6">
           <BaseInput 
             id="name" 
-            label="Full Name" 
+            label="真实姓名" 
             v-model="form.name" 
-            placeholder="John Doe"
+            placeholder="张三"
           />
 
           <BaseInput 
             id="email" 
-            label="Email address" 
+            label="邮箱地址" 
             v-model="form.email" 
             placeholder="name@example.com"
           />
 
           <BaseInput 
             id="password" 
-            label="Password" 
+            label="设置密码" 
             type="password" 
             v-model="form.password" 
-            placeholder="min 8 characters"
+            placeholder="至少 8 位字符"
           />
 
           <div class="flex items-center">
             <input id="terms" name="terms" type="checkbox" class="h-4 w-4 text-primary-600 focus:ring-primary-500 border-gray-300 rounded">
             <label for="terms" class="ml-2 block text-sm text-slate-900">
-              I agree to the <a href="#" class="text-primary-600 hover:text-primary-500">Terms</a> and <a href="#" class="text-primary-600 hover:text-primary-500">Privacy Policy</a>
+              我已阅读并同意 <a href="#" class="text-primary-600 hover:text-primary-500">服务条款</a> 与 <a href="#" class="text-primary-600 hover:text-primary-500">隐私政策</a>
             </label>
           </div>
 
           <BaseButton type="submit" block :loading="loading" size="lg">
-            Create account
+            创建账号
           </BaseButton>
         </form>
       </div>

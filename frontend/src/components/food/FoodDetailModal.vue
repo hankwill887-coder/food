@@ -50,7 +50,7 @@ const add = () => {
         </button>
         <div class="absolute bottom-4 left-6">
            <h3 class="text-2xl font-bold text-primary-900">{{ food?.name }}</h3>
-           <p class="text-primary-700 font-medium">{{ food?.brand || 'Generic Food' }}</p>
+           <p class="text-primary-700 font-medium">{{ food?.brand || '通用食物' }}</p>
         </div>
       </div>
 
@@ -60,19 +60,19 @@ const add = () => {
         <!-- Nutrition Grid -->
         <div class="grid grid-cols-4 gap-2 text-center">
           <div class="bg-slate-50 p-3 rounded-2xl">
-            <div class="text-sm text-slate-500 font-medium">Cal</div>
+            <div class="text-sm text-slate-500 font-medium">热量</div>
             <div class="text-xl font-bold text-slate-900">{{ nutrients.cal }}</div>
           </div>
           <div class="bg-indigo-50 p-3 rounded-2xl">
-            <div class="text-sm text-indigo-400 font-medium">Prot</div>
+            <div class="text-sm text-indigo-400 font-medium">蛋白质</div>
             <div class="text-xl font-bold text-indigo-700">{{ nutrients.p }}g</div>
           </div>
           <div class="bg-amber-50 p-3 rounded-2xl">
-             <div class="text-sm text-amber-500 font-medium">Carb</div>
+             <div class="text-sm text-amber-500 font-medium">碳水</div>
              <div class="text-xl font-bold text-amber-700">{{ nutrients.c }}g</div>
           </div>
           <div class="bg-rose-50 p-3 rounded-2xl">
-             <div class="text-sm text-rose-400 font-medium">Fat</div>
+             <div class="text-sm text-rose-400 font-medium">脂肪</div>
              <div class="text-xl font-bold text-rose-700">{{ nutrients.f }}g</div>
           </div>
         </div>
@@ -80,7 +80,7 @@ const add = () => {
         <!-- Inputs -->
         <div class="flex gap-4">
           <div class="flex-1">
-            <label class="block text-sm font-medium text-slate-700 mb-1">Amount</label>
+            <label class="block text-sm font-medium text-slate-700 mb-1">数量</label>
             <input 
               type="number" 
               v-model="amount" 
@@ -88,10 +88,10 @@ const add = () => {
             />
           </div>
           <div class="flex-1">
-             <label class="block text-sm font-medium text-slate-700 mb-1">Unit</label>
+             <label class="block text-sm font-medium text-slate-700 mb-1">单位</label>
              <select v-model="unit" class="block w-full rounded-xl border-slate-200 focus:border-primary-500 focus:ring-primary-500 text-base">
-               <option value="serving">Serving</option>
-               <option value="gram">Grams</option>
+               <option value="serving">份</option>
+               <option value="gram">克 (g)</option>
              </select>
           </div>
         </div>
@@ -99,7 +99,7 @@ const add = () => {
 
       <!-- Footer -->
       <div class="p-6 border-t border-slate-100 mt-auto">
-        <BaseButton block size="lg" @click="add">Add to Log</BaseButton>
+        <BaseButton block size="lg" @click="add">添加记录</BaseButton>
       </div>
     
     </div>

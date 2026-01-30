@@ -33,21 +33,21 @@ const handleLogin = async () => {
       <div class="relative z-10">
         <div class="flex items-center gap-2 text-emerald-100 mb-8">
           <Crown class="w-8 h-8" />
-          <span class="text-xl font-bold tracking-tight">Nutrition Pro</span>
+          <span class="text-xl font-bold tracking-tight">营养专家 Pro</span>
         </div>
         <h1 class="text-5xl font-extrabold text-white leading-tight mb-6">
-          Eat Smart.<br />Live Better.
+          科学饮食<br />健康生活
         </h1>
         <p class="text-emerald-100/80 text-lg max-w-md">
-          Track your calories, nutrients, and weight goals with precision. Join thousands of users achieving their dream physique.
+          精准追踪卡路里、营养素与体重目标。加入数万用户的行列，通过科学管理收获理想身材。
         </p>
       </div>
       
       <div class="relative z-10">
         <div class="flex items-center gap-4 text-emerald-200/60 text-sm">
-          <span>© 2026 Nutrition Project</span>
-          <span>Privacy Policy</span>
-          <span>Terms</span>
+          <span>© 2026 营养项目组</span>
+          <span>隐私政策</span>
+          <span>服务条款</span>
         </div>
       </div>
     </div>
@@ -56,11 +56,11 @@ const handleLogin = async () => {
     <div class="flex items-center justify-center p-6 lg:p-12">
       <div class="w-full max-w-md space-y-8">
         <div class="text-center lg:text-left">
-          <h2 class="text-3xl font-bold tracking-tight text-slate-900">Welcome back</h2>
+          <h2 class="text-3xl font-bold tracking-tight text-slate-900">欢迎回来</h2>
           <p class="mt-2 text-slate-500">
-            Don't have an account? 
+            还没有账号？ 
             <RouterLink to="/register" class="font-medium text-primary-600 hover:text-primary-500 transition-colors">
-              Sign up for free
+              免费注册
             </RouterLink>
           </p>
         </div>
@@ -68,27 +68,27 @@ const handleLogin = async () => {
         <form @submit.prevent="handleLogin" class="space-y-6">
           <BaseInput 
             id="email" 
-            label="Email address" 
+            label="邮箱地址" 
             v-model="form.email" 
             placeholder="name@example.com"
           />
           <div class="space-y-1">
             <BaseInput 
               id="password" 
-              label="Password" 
+              label="登录密码" 
               type="password" 
               v-model="form.password" 
               placeholder="••••••••"
             />
             <div class="flex justify-end">
               <a href="#" class="text-sm font-medium text-primary-600 hover:text-primary-500">
-                Forgot password?
+                忘记密码？
               </a>
             </div>
           </div>
 
           <BaseButton type="submit" block :loading="loading" size="lg">
-            Sign in
+            立即登录
             <ArrowRight class="ml-2 w-5 h-5" />
           </BaseButton>
         </form>
@@ -98,7 +98,7 @@ const handleLogin = async () => {
             <div class="w-full border-t border-slate-200"></div>
           </div>
           <div class="relative flex justify-center text-sm">
-            <span class="bg-white px-2 text-slate-500">Or continue with</span>
+            <span class="bg-white px-2 text-slate-500">或通过社交账号登录</span>
           </div>
         </div>
 

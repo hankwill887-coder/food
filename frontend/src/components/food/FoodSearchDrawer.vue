@@ -19,11 +19,11 @@ const close = () => emit('update:visible', false)
 
 // Mock DB
 const allFoods = [
-  { id: 1, name: 'Banana', brand: 'Generic', nutrients: { cal: 105, p: 1.3, c: 27, f: 0.3 } },
-  { id: 2, name: 'Greek Yogurt', brand: 'Chobani', nutrients: { cal: 120, p: 12, c: 8, f: 0 } },
-  { id: 3, name: 'Whole Wheat Bread', brand: 'Nature Own', nutrients: { cal: 80, p: 4, c: 15, f: 1 } },
-  { id: 4, name: 'Almonds', brand: 'Blue Diamond', nutrients: { cal: 164, p: 6, c: 6, f: 14 } },
-  { id: 5, name: 'Chicken Breast', brand: 'Kirkland', nutrients: { cal: 165, p: 31, c: 0, f: 3.6 } },
+  { id: 1, name: '香蕉', brand: '通用', nutrients: { cal: 105, p: 1.3, c: 27, f: 0.3 } },
+  { id: 2, name: '希腊酸奶', brand: 'Chobani', nutrients: { cal: 120, p: 12, c: 8, f: 0 } },
+  { id: 3, name: '全麦面包', brand: 'Nature Own', nutrients: { cal: 80, p: 4, c: 15, f: 1 } },
+  { id: 4, name: '杏仁', brand: 'Blue Diamond', nutrients: { cal: 164, p: 6, c: 6, f: 14 } },
+  { id: 5, name: '鸡胸肉', brand: 'Kirkland', nutrients: { cal: 165, p: 31, c: 0, f: 3.6 } },
 ]
 
 const results = computed(() => {
@@ -61,7 +61,7 @@ const handleAddFood = (entry: any) => {
           <button @click="close" class="p-2 -ml-2 rounded-full hover:bg-slate-50 text-slate-500">
             <X class="w-6 h-6" />
           </button>
-          <h2 class="text-xl font-bold text-slate-900 capitalize">Add to {{ mealType }}</h2>
+          <h2 class="text-xl font-bold text-slate-900 capitalize">添加到 {{ mealType === 'breakfast' ? '早餐' : mealType === 'lunch' ? '午餐' : mealType === 'dinner' ? '晚餐' : '加餐' }}</h2>
         </div>
 
         <!-- Search -->
@@ -71,7 +71,7 @@ const handleAddFood = (entry: any) => {
             <input 
               v-model="searchQuery"
               type="text" 
-              placeholder="Search for food (e.g. 'Chicken')..." 
+              placeholder="搜索食物 (例如 '鸡肉')..." 
               class="block w-full pl-10 rounded-xl border-slate-200 shadow-sm focus:border-primary-500 focus:ring-primary-500 py-3"
               autoFocus
             />
@@ -98,22 +98,22 @@ const handleAddFood = (entry: any) => {
           <!-- Recent/Empty State -->
           <div v-else class="p-8 text-center">
             <div v-if="!searchQuery" class="space-y-4">
-              <h3 class="text-sm font-bold text-slate-900 uppercase tracking-wide">Recent Foods</h3>
+              <h3 class="text-sm font-bold text-slate-900 uppercase tracking-wide">最近常吃</h3>
               <div class="space-y-2">
                  <!-- Mock Recent -->
                 <div @click="openDetail(allFoods[0])" class="p-3 bg-slate-50 rounded-xl flex items-center justify-between cursor-pointer">
-                   <span class="text-slate-700">Banana</span>
+                   <span class="text-slate-700">香蕉</span>
                    <Plus class="w-4 h-4 text-slate-400" />
                 </div>
                 <div @click="openDetail(allFoods[4])" class="p-3 bg-slate-50 rounded-xl flex items-center justify-between cursor-pointer">
-                   <span class="text-slate-700">Chicken Breast</span>
+                   <span class="text-slate-700">鸡胸肉</span>
                    <Plus class="w-4 h-4 text-slate-400" />
                 </div>
               </div>
             </div>
             <div v-else class="text-slate-400 py-10">
-              No foods found. <br>
-              <button class="mt-4 text-primary-600 font-medium hover:underline">Create Custom Food</button>
+              未找到食物 <br>
+              <button class="mt-4 text-primary-600 font-medium hover:underline">创建自定义食物</button>
             </div>
           </div>
         </div>

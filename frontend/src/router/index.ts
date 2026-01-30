@@ -13,12 +13,27 @@ const router = createRouter({
                 {
                     path: '',
                     name: 'home',
-                    component: () => import('@/views/diary/TodayView.vue')
+                    component: () => import('@/views/home/HomeView.vue')
                 },
                 {
                     path: 'weight',
                     name: 'weight',
                     component: () => import('@/views/weight/WeightView.vue')
+                },
+                {
+                    path: 'diary',
+                    name: 'diary',
+                    component: () => import('@/views/diary/TodayView.vue') // Reuse TodayView for now
+                },
+                {
+                    path: 'foods',
+                    name: 'foods',
+                    component: () => import('@/views/PlaceholderView.vue')
+                },
+                {
+                    path: 'profile',
+                    name: 'profile',
+                    component: () => import('@/views/PlaceholderView.vue')
                 },
                 // ... other routes
             ]

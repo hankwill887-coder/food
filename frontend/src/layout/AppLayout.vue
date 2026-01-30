@@ -11,11 +11,11 @@ import {
 const route = useRoute()
 
 const navItems = [
-  { name: 'Today', path: '/', icon: LayoutDashboard },
-  { name: 'Diary', path: '/diary', icon: BookOpen },
-  { name: 'Foods', path: '/foods', icon: Utensils },
-  { name: 'Weight', path: '/weight', icon: Scale },
-  { name: 'Profile', path: '/profile', icon: User },
+  { name: '今日概览', path: '/', icon: LayoutDashboard },
+  { name: '饮食日记', path: '/diary', icon: BookOpen },
+  { name: '食物库', path: '/foods', icon: Utensils },
+  { name: '体重记录', path: '/weight', icon: Scale },
+  { name: '个人中心', path: '/profile', icon: User },
 ]
 
 const isActive = (path: string) => route.path === path
@@ -27,7 +27,7 @@ const isActive = (path: string) => route.path === path
     <aside class="hidden lg:flex flex-col w-64 bg-white border-r border-slate-200 fixed h-full z-20">
       <div class="h-16 flex items-center px-6 border-b border-slate-100">
         <span class="text-xl font-bold bg-gradient-to-r from-primary-600 to-primary-400 bg-clip-text text-transparent">
-          Nutrition
+          营养专家
         </span>
       </div>
       
@@ -56,8 +56,8 @@ const isActive = (path: string) => route.path === path
             JD
           </div>
           <div class="text-sm">
-            <p class="font-medium text-slate-700">John Doe</p>
-            <p class="text-xs text-slate-400">Basic Plan</p>
+            <p class="font-medium text-slate-700">张三</p>
+            <p class="text-xs text-slate-400">基础计划</p>
           </div>
         </div>
       </div>

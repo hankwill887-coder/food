@@ -12,45 +12,45 @@ const openDrawer = (mealId: string) => {
   showDrawer.value = true
 }
 
-// Mock Data
-const stats = {
+// Mock Data (Ref for reactivity)
+const stats = ref({
   consumed: 1250,
   target: 2000,
   protein: { current: 85, target: 140 },
   carbs: { current: 120, target: 200 },
   fat: { current: 45, target: 70 }
-}
+})
 
 const meals = ref([
   {
     id: 'breakfast',
-    name: 'Breakfast',
+    name: '早餐',
     calories: 450,
     items: [
-      { id: 1, name: 'Oatmeal with Blueberries', portion: '1 bowl', cal: 300 },
-      { id: 2, name: 'Boiled Egg', portion: '2 large', cal: 150 }
+      { id: 1, name: '燕麦蓝莓碗', portion: '1 碗', cal: 300 },
+      { id: 2, name: '水煮蛋', portion: '2 个', cal: 150 }
     ]
   },
   {
     id: 'lunch',
-    name: 'Lunch',
+    name: '午餐',
     calories: 600,
     items: [
-      { id: 3, name: 'Grilled Chicken Salad', portion: '1 serving', cal: 450 },
-      { id: 4, name: 'Apple', portion: '1 medium', cal: 150 }
+      { id: 3, name: '鸡胸肉沙拉', portion: '1 份', cal: 450 },
+      { id: 4, name: '苹果', portion: '1 个', cal: 150 }
     ]
   },
   {
     id: 'dinner',
-    name: 'Dinner',
+    name: '晚餐',
     calories: 200,
     items: [
-      { id: 5, name: 'Protein Shake', portion: '1 scoop', cal: 200 }
+      { id: 5, name: '蛋白粉', portion: '1 勺', cal: 200 }
     ]
   },
   {
     id: 'snack',
-    name: 'Snacks',
+    name: '加餐/零食',
     calories: 0,
     items: []
   }
@@ -58,10 +58,45 @@ const meals = ref([
 
 // Helper for macro bars
 const getPercent = (curr: number, max: number) => Math.min((curr / max) * 100, 100)
+
+// Date Navigation
+import { ChevronLeft, Calendar as CalendarIcon } from 'lucide-vue-next'
+const currentDate = ref(new Date())
+
+const formatDate = (date: Date) => {
+  const options: Intl.DateTimeFormatOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+  return date.toLocaleDateString('zh-CN', options);
+}
+
+const changeDate = (days: number) => {
+  const newDate = new Date(currentDate.value)
+  newDate.setDate(newDate.getDate() + days)
+  currentDate.value = newDate
+  
+  // Randomize mock data to show change
+  stats.value.consumed = Math.floor(Math.random() * 1500) + 500
+  meals.value[0].calories = Math.floor(Math.random() * 500)
+}
 </script>
 
 <template>
-  <div class="space-y-8">
+  <div class="space-y-6">
+    
+    <!-- Date Header -->
+    <div class="flex items-center justify-between bg-white rounded-2xl p-4 shadow-sm border border-slate-100">
+      <button @click="changeDate(-1)" class="p-2 hover:bg-slate-50 rounded-full text-slate-600">
+        <ChevronLeft class="w-5 h-5" />
+      </button>
+      
+      <div class="flex items-center gap-2 text-slate-800 font-bold text-lg">
+        <CalendarIcon class="w-5 h-5 text-primary-500" />
+        <span>{{ formatDate(currentDate) }}</span>
+      </div>
+
+      <button @click="changeDate(1)" class="p-2 hover:bg-slate-50 rounded-full text-slate-600">
+        <ChevronRight class="w-5 h-5" />
+      </button>
+    </div>
     
     <!-- Top Section: Stats -->
     <section class="bg-white rounded-3xl p-6 shadow-sm border border-slate-100">
@@ -79,9 +114,9 @@ const getPercent = (curr: number, max: number) => Math.min((curr / max) * 100, 1
           >
             <template #default>
               <div class="flex flex-col items-center">
-                <span class="text-xs text-slate-400 font-medium uppercase tracking-wider">Remaining</span>
+                <span class="text-xs text-slate-400 font-medium uppercase tracking-wider">剩余热量</span>
                 <span class="text-3xl font-bold text-slate-900">{{ stats.target - stats.consumed }}</span>
-                <span class="text-xs text-slate-400 mt-1">kcal</span>
+                <span class="text-xs text-slate-400 mt-1">千卡</span>
               </div>
             </template>
           </el-progress>
@@ -92,7 +127,7 @@ const getPercent = (curr: number, max: number) => Math.min((curr / max) * 100, 1
         <div class="flex-1 w-full grid grid-cols-3 gap-4">
           <!-- Protein -->
           <div class="bg-indigo-50/50 rounded-2xl p-4 flex flex-col items-center justify-center space-y-2">
-             <div class="text-xs font-semibold text-indigo-900 uppercase tracking-wide">Protein</div>
+             <div class="text-xs font-semibold text-indigo-900 uppercase tracking-wide">蛋白质</div>
              <el-progress 
                type="circle" 
                :percentage="getPercent(stats.protein.current, stats.protein.target)" 
@@ -108,7 +143,7 @@ const getPercent = (curr: number, max: number) => Math.min((curr / max) * 100, 1
 
           <!-- Carbs -->
           <div class="bg-amber-50/50 rounded-2xl p-4 flex flex-col items-center justify-center space-y-2">
-             <div class="text-xs font-semibold text-amber-900 uppercase tracking-wide">Carbs</div>
+             <div class="text-xs font-semibold text-amber-900 uppercase tracking-wide">碳水</div>
              <el-progress 
                type="circle" 
                :percentage="getPercent(stats.carbs.current, stats.carbs.target)" 
@@ -124,7 +159,7 @@ const getPercent = (curr: number, max: number) => Math.min((curr / max) * 100, 1
 
           <!-- Fat -->
           <div class="bg-rose-50/50 rounded-2xl p-4 flex flex-col items-center justify-center space-y-2">
-             <div class="text-xs font-semibold text-rose-900 uppercase tracking-wide">Fat</div>
+             <div class="text-xs font-semibold text-rose-900 uppercase tracking-wide">脂肪</div>
              <el-progress 
                type="circle" 
                :percentage="getPercent(stats.fat.current, stats.fat.target)" 
@@ -176,7 +211,7 @@ const getPercent = (curr: number, max: number) => Math.min((curr / max) * 100, 1
         
         <!-- Empty State -->
         <div v-else class="p-6 text-center text-slate-400 text-sm">
-          No food logged yet
+          暂无记录
         </div>
       </div>
     </div>
