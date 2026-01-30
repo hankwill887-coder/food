@@ -13,7 +13,7 @@ const router = createRouter({
                 {
                     path: '',
                     name: 'home',
-                    component: HelloWorld // Temporary placeholder
+                    component: () => import('@/views/diary/TodayView.vue')
                 },
                 // ... other routes
             ]
