@@ -1,0 +1,53 @@
+# Phase 0: Environment & Initialization Plan
+
+## Goal Description
+Clean up the existing workspace by removing the unused `hello-elementor` WordPress theme and establish the foundation for the new application: a Spring Boot backend and a Vue 3 frontend.
+
+## Proposed Changes
+
+### 1. Cleanup
+- **Directory**: `f:\code\food\hello-elementor`
+- **Action**: Delete recursively.
+
+### 2. Backend Initialization (Spring Boot)
+- **Framework**: Spring Boot 3.x
+- **Location**: `f:\code\food\backend`
+- **Dependencies**:
+  - `spring-boot-starter-web` (REST API)
+  - `spring-boot-starter-data-jpa` (Database)
+  - `spring-boot-starter-security` (Auth)
+  - `spring-boot-starter-validation` (Input validation)
+  - `postgresql` (Driver)
+  - `flyway-core` (DB Migration)
+  - `lombok` (Boilerplate reduction)
+  - `springdoc-openapi-starter-webmvc-ui` (Swagger/API Docs)
+- **Structure**:
+  ```text
+  com.example.nutrition
+  ├── common        // Global exceptions, result wrappers
+  ├── config        // Security, Swagger, CORS configs
+  ├── module
+  │   ├── auth      // Login/Register logic
+  │   ├── food      // Food items & search
+  │   ├── diary     // Daily records
+  │   └── user      // Profile & Goals
+  └── NutritionApplication.java
+  ```
+
+### 3. Frontend Initialization (Vue 3)
+- **Framework**: Vue 3 + Vite
+- **Location**: `f:\code\food\frontend`
+- **Tech Stack**:
+  - `vue-router`: Routing
+  - `pinia`: State Management
+  - `tailwindcss`: Styling (Utility-first)
+  - `element-plus`: UI Components (for complex inputs/tables)
+  - `@vueuse/core`: Composable utilities
+  - `axios`: API requests
+- **Configuration**:
+  - Setup `vite.config.ts` with alias `@` -> `src/`
+  - Initialize Tailwind CSS with `postcss` and `autoprefixer`
+
+## Verification Plan
+1. **Backend Verify**: Run `mvn spring-boot:run` and access `http://localhost:8080/swagger-ui.html` to see the API doc page.
+2. **Frontend Verify**: Run `npm run dev` and access `http://localhost:5173` to see the "Hello Vue" page with Tailwind styles working.
